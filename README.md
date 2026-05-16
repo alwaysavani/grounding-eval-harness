@@ -40,6 +40,8 @@ flowchart TD
 ## ⚙️ Prerequisites
 Python 3.10 or higher
 
+NodeJS 18.17 or higher
+
 A free API key from Groq Console
 
 ## 🚀 Local Setup & Installation
