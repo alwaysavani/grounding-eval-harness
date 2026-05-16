@@ -54,6 +54,10 @@ langgraph_app = workflow.compile()
 
 import re
 
+def run_pipeline(initial_state: dict) -> dict:
+    """Thin wrapper around the compiled graph — exists so tests can mock it cleanly."""
+    return langgraph_app.invoke(initial_state)
+
 @app.post("/api/tailor")
 async def tailor_resume(request: ResumeRequest):
     if not request.base_resume_text or not request.job_description_text:
@@ -70,7 +74,7 @@ async def tailor_resume(request: ResumeRequest):
     }
     
     try:
-        final_state = langgraph_app.invoke(initial_state)
+        final_state = run_pipeline(initial_state)
         draft = final_state.get("draft_resume", "")
         
         resume_match = re.search(r"<resume>(.*?)</resume>", draft, re.DOTALL)

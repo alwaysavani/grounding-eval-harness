@@ -15,6 +15,9 @@ api:
 ui:
 	cd ui && npm run dev
 
+test-bdd: setup
+	.venv/bin/behave tests/features
+
 clean:
 	rm -rf .venv ui/node_modules ui/.next
 	find . -type f -name '*.pyc' -delete
