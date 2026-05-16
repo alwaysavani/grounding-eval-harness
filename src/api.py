@@ -94,5 +94,7 @@ async def tailor_resume(request: ResumeRequest):
             "evaluation_feedback": final_state.get("evaluation_feedback")
         }
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         # Return generic error to prevent internal API/LLM error leakage
-        raise HTTPException(status_code=500, detail="An internal pipeline error occurred. Please try again later.")
+        raise HTTPException(status_code=500, detail=str(e)) # Temporarily show error for debugging
