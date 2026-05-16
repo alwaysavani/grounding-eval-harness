@@ -1,0 +1,7 @@
+Job Title: Senior Python Engineer
+
+Requirements:
+- 5+ years of experience in Python.
+- Strong knowledge of FastAPI and PostgreSQL.
+- Experience with AWS and Kubernetes.
+- Proven track record of improving system performance by at least 50%.
