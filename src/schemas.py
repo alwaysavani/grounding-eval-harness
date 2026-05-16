@@ -9,6 +9,7 @@ class AgentState(TypedDict):
     evaluation_feedback: str
     hallucinations_found: bool
     iteration_count: int
+    output_format: str
 
 # Pydantic model for structured output from the Evaluator
 class Claim(BaseModel):

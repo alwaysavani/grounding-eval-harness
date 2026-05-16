@@ -57,13 +57,17 @@ def main():
     
     app = workflow.compile()
     
+    _, ext = os.path.splitext(args.resume)
+    output_format = "LaTeX" if ext.lower() == ".tex" else "Markdown"
+    
     initial_state = {
         "base_resume_text": base_resume_text,
         "job_description_text": job_description_text,
         "draft_resume": "",
         "evaluation_feedback": "",
         "hallucinations_found": False,
-        "iteration_count": 0
+        "iteration_count": 0,
+        "output_format": output_format
     }
     
     console.print("[bold blue]Starting Anti-Hallucination Resume Pipeline...[/bold blue]")
