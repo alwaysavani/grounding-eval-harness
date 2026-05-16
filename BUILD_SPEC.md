@@ -18,9 +18,11 @@ Create the following structure:
 ├── requirements.txt
 ├── src/
 │   ├── app.py              # Main LangGraph execution script
+│   ├── api.py              # FastAPI presentation layer
 │   ├── tailor_agent.py     # Generator node logic
 │   ├── grounding_harness.py# Evaluation node logic
 │   └── schemas.py          # Pydantic models
+├── ui/                     # Next.js Presentation Layer
 └── data/
     ├── base_resume.md      # Dummy base resume for testing
     └── job_postings/
