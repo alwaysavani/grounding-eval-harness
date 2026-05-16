@@ -39,6 +39,9 @@ Python 3.10 or higher
 A free API key from Groq Console
 
 ## 🚀 Local Setup & Installation
+
+We use a `Makefile` to simplify the build environment configuration.
+
 1. Clone the repository
 
 ```bash
@@ -46,20 +49,17 @@ git clone https://github.com/alwaysavani/grounding-eval-harness.git
 cd grounding-eval-harness
 ```
 
-2. Create and activate a virtual environment
+2. Setup the environment (Installs dependencies in `.venv`)
 
 ```bash
-python -m venv venv
-
-# On macOS/Linux:
-source venv/bin/activate
-# On Windows:
-venv\Scripts\activate
+make setup
 ```
 
-3. Install dependencies
+Alternatively, you can do it manually:
 
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -87,6 +87,7 @@ Place your unstructured, real-world source files directly into the data/ directo
 ```text
 resume-grounding-harness/
 ├── .env                    # Local secrets (Groq Key)
+├── Makefile                # Build environment configuration
 ├── requirements.txt        # Python dependencies
 ├── src/
 │   ├── app.py              # Main execution script running the LangGraph state machine
@@ -100,9 +101,17 @@ resume-grounding-harness/
 ```
 
 ## 💻 Quickstart & Execution
-To run the pipeline and trigger the LangGraph orchestration loop:
+
+To run the pipeline and trigger the LangGraph orchestration loop with test data, simply use:
 
 ```bash
+make test
+```
+
+If you want to manually test the app and pass specific arguments:
+
+```bash
+source .venv/bin/activate
 python src/app.py --resume data/base_resume.md --job data/job_postings/job_1.txt
 ```
 

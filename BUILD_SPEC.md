@@ -14,6 +14,7 @@ Build a Python-based agentic pipeline that tailors a resume to a specific job de
 ## 📁 Required Directory Structure
 Create the following structure:
 ├── .env.example
+├── Makefile
 ├── requirements.txt
 ├── src/
 │   ├── app.py              # Main LangGraph execution script
