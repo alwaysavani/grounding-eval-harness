@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Anti-Hallucination Resume Builder",
-  description: "Agentic resume tailoring with strict claim grounding.",
+  title: "Grounded Eval Harness Demo",
+  description: "Agentic resume tailoring with strict claim grounding via LangGraph.",
 };
 
 export default function RootLayout({

@@ -44,7 +44,7 @@ export default function Home() {
     <div className="min-h-screen bg-gray-900 text-white p-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-          Anti-Hallucination Resume Builder
+          Grounded Eval Harness Demo
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
