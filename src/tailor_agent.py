@@ -21,7 +21,8 @@ def generate_draft(state: AgentState) -> dict:
         human_prompt += "Previous Evaluation Feedback (Correct these hallucinations):\n{feedback}\n\n"
         
     output_format = state.get("output_format", "Markdown")
-    human_prompt += f"Draft the tailored resume now in {output_format} format. Do not include markdown code blocks around the text, just output the raw code."
+    human_prompt += f"Draft the tailored resume now in {output_format} format.\n"
+    human_prompt += "CRITICAL: You MUST wrap the actual resume content entirely inside <resume> and </resume> XML tags. Any conversational notes or explanations MUST be placed strictly outside these tags."
     
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),

@@ -7,7 +7,7 @@ from tailor_agent import generate_draft
 from grounding_harness import evaluate_draft
 from rich.console import Console
 
-console = Console()
+console = Console(stderr=True)
 
 def route_next(state: AgentState):
     if state.get("hallucinations_found") and state.get("iteration_count", 0) < 3:
@@ -73,11 +73,17 @@ def main():
     console.print("[bold blue]Starting Anti-Hallucination Resume Pipeline...[/bold blue]")
     
     final_state = app.invoke(initial_state)
+    draft = final_state.get("draft_resume", "")
     
-    console.print("\n[bold green]Final Tailored Resume:[/bold green]")
-    console.print("="*40)
-    console.print(final_state.get("draft_resume", ""))
-    console.print("="*40)
+    import re
+    resume_match = re.search(r"<resume>(.*?)</resume>", draft, re.DOTALL)
+    if resume_match:
+        parsed_resume = resume_match.group(1).strip()
+    else:
+        parsed_resume = draft.strip()
+    
+    # Print ONLY the tailored resume to stdout
+    print(parsed_resume)
 
 if __name__ == "__main__":
     main()

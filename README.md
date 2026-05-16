@@ -34,6 +34,9 @@ flowchart TD
     class Router router;
 ```
 
+## 🎬 Demo
+![System Demo](docs/demo.webp)
+
 ## ⚙️ Prerequisites
 Python 3.10 or higher
 
@@ -103,13 +106,26 @@ resume-grounding-harness/
 
 ## 💻 Quickstart & Execution
 
-To run the pipeline and trigger the LangGraph orchestration loop with test data, simply use:
+To run the CLI pipeline and trigger the LangGraph orchestration loop with test data, simply use:
 
 ```bash
 make test
 ```
 
-If you want to manually test the app and pass specific arguments:
+### 🖥️ Running the Web Application (Presentation Layer)
+You can test the system visually using the lightweight Next.js UI and FastAPI server:
+
+1. Open a new terminal and start the FastAPI backend:
+```bash
+make api
+```
+2. Open another terminal and start the Next.js frontend:
+```bash
+make ui
+```
+3. Visit `http://localhost:3000` in your browser.
+
+If you want to manually test the app via CLI and pass specific arguments:
 
 ```bash
 source .venv/bin/activate
