@@ -34,6 +34,9 @@ flowchart TD
     class Router router;
 ```
 
+## 🎬 Demo
+![System Demo](docs/demo.webp)
+
 ## ⚙️ Prerequisites
 Python 3.10 or higher
 
