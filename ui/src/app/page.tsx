@@ -129,6 +129,9 @@ export default function Home() {
                     <div className="mt-2 text-sm bg-black/30 p-2 rounded text-gray-300">
                       {result.evaluation_feedback}
                     </div>
+                  )}
+                </div>
+
                 <div className={`flex-1 bg-gray-900 border border-gray-700 rounded-lg p-4 overflow-y-auto font-mono ${outputFormat === "LaTeX" ? "text-xs text-blue-300" : "text-sm text-gray-300"} whitespace-pre-wrap`}>
                   <div className="text-gray-500 mb-2 border-b border-gray-700 pb-2 font-sans font-bold">
                     {outputFormat === "LaTeX" ? "LaTeX Code Block" : "Tailored Resume (Markdown)"}
