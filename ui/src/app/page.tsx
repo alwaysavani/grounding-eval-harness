@@ -17,7 +17,7 @@ export default function Home() {
     setResult(null);
 
     try {
-      const res = await fetch("http://localhost:8000/api/tailor", {
+      const res = await fetch("http://127.0.0.1:8000/api/tailor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -132,9 +132,40 @@ export default function Home() {
                   )}
                 </div>
 
-                <div className="flex-1 bg-gray-900 border border-gray-700 rounded-lg p-4 overflow-y-auto font-mono text-sm text-gray-300 whitespace-pre-wrap">
-                  {result.draft_resume}
-                </div>
+                {(() => {
+                  if (outputFormat === "LaTeX") {
+                    const docStart = result.draft_resume.indexOf("\\documentclass");
+                    const docEnd = result.draft_resume.indexOf("\\end{document}");
+                    
+                    if (docStart !== -1 && docEnd !== -1) {
+                      const latexEnd = docEnd + "\\end{document}".length;
+                      const latexCode = result.draft_resume.substring(docStart, latexEnd);
+                      const normalText = (result.draft_resume.substring(0, docStart) + result.draft_resume.substring(latexEnd)).trim();
+                      
+                      return (
+                        <>
+                          <div className="flex-1 bg-gray-900 border border-gray-700 rounded-lg p-4 overflow-y-auto font-mono text-xs text-blue-300 whitespace-pre-wrap">
+                            <div className="text-gray-500 mb-2 border-b border-gray-700 pb-2 font-sans font-bold">LaTeX Code Block</div>
+                            {latexCode}
+                          </div>
+                          {normalText && (
+                            <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 font-sans text-sm text-gray-300 whitespace-pre-wrap mt-4">
+                              <div className="text-gray-500 mb-2 border-b border-gray-700 pb-2 font-bold">Additional Agent Notes</div>
+                              {normalText}
+                            </div>
+                          )}
+                        </>
+                      );
+                    }
+                  }
+                  
+                  // Default Markdown or Unparsable LaTeX
+                  return (
+                    <div className="flex-1 bg-gray-900 border border-gray-700 rounded-lg p-4 overflow-y-auto font-mono text-sm text-gray-300 whitespace-pre-wrap">
+                      {result.draft_resume}
+                    </div>
+                  );
+                })()}
               </div>
             )}
           </div>
