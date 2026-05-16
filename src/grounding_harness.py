@@ -4,7 +4,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from schemas import AgentState, EvaluatorOutput
 from rich.console import Console
 
-console = Console()
+console = Console(stderr=True)
 
 def evaluate_draft(state: AgentState) -> dict:
     llm = ChatGroq(model="llama-3.1-8b-instant", api_key=os.getenv("GROQ_API_KEY"))

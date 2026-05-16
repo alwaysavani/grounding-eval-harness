@@ -7,7 +7,7 @@ from tailor_agent import generate_draft
 from grounding_harness import evaluate_draft
 from rich.console import Console
 
-console = Console()
+console = Console(stderr=True)
 
 def route_next(state: AgentState):
     if state.get("hallucinations_found") and state.get("iteration_count", 0) < 3:
@@ -74,10 +74,8 @@ def main():
     
     final_state = app.invoke(initial_state)
     
-    console.print("\n[bold green]Final Tailored Resume:[/bold green]")
-    console.print("="*40)
-    console.print(final_state.get("draft_resume", ""))
-    console.print("="*40)
+    # Print ONLY the tailored resume to stdout
+    print(final_state.get("draft_resume", ""))
 
 if __name__ == "__main__":
     main()
