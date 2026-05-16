@@ -6,31 +6,32 @@ Built using LangGraph (as the open-source Agent Development Kit) to handle the s
 ## 🏗️ Architecture Graph
 The orchestration is structured as a cyclic state graph managed by LangGraph:
 
-```text
-       +------------------+
-       |   START NODE     |
-       +--------+---------+
-                |
-                v
-       +------------------+
-       |  Draft Resume    |<-----------------------+
-       |  (Generator)     |                        |
-       +--------+---------+                        |
-                |                                  |
-                v                                  |
-       +------------------+                        |
-       |  Verify Claims   |                        | (If Hallucinations
-       |  (Evaluator)     |                        |  are Found)
-       +--------+---------+                        |
-                |                                  |
-        [Conditional Router]                       |
-        /                  \                       |
-(All Claims Valid)      (Hallucinations Detected)  |
-      /                      \                     |
-     v                        +--------------------+
-+----+-----------+
-|   END NODE     |
-+----------------+
+```mermaid
+flowchart TD
+    %% Define Nodes
+    Start((START))
+    Generator["generator<br/>(generate_draft)"]
+    Evaluator["evaluator<br/>(evaluate_draft)"]
+    Router{"route_next()"}
+    End((END))
+
+    %% Standard Edges
+    Start --> Generator
+    Generator --> Evaluator
+    Evaluator --> Router
+    
+    %% Conditional Routing Logic
+    Router -- "hallucinations_found == True\nAND iteration_count < 3" --> Generator
+    Router -- "hallucinations_found == False\nOR iteration_count >= 3" --> End
+
+    %% Styling for better visualization
+    classDef startEnd fill:#000000,stroke:#333,stroke-width:2px,color:#fff;
+    classDef node fill:#1f2937,stroke:#3b82f6,stroke-width:2px,color:#fff,rx:5px,ry:5px;
+    classDef router fill:#374151,stroke:#f59e0b,stroke-width:2px,color:#fff;
+    
+    class Start,End startEnd;
+    class Generator,Evaluator node;
+    class Router router;
 ```
 
 ## ⚙️ Prerequisites
