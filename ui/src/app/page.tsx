@@ -129,43 +129,19 @@ export default function Home() {
                     <div className="mt-2 text-sm bg-black/30 p-2 rounded text-gray-300">
                       {result.evaluation_feedback}
                     </div>
-                  )}
+                <div className={`flex-1 bg-gray-900 border border-gray-700 rounded-lg p-4 overflow-y-auto font-mono ${outputFormat === "LaTeX" ? "text-xs text-blue-300" : "text-sm text-gray-300"} whitespace-pre-wrap`}>
+                  <div className="text-gray-500 mb-2 border-b border-gray-700 pb-2 font-sans font-bold">
+                    {outputFormat === "LaTeX" ? "LaTeX Code Block" : "Tailored Resume (Markdown)"}
+                  </div>
+                  {result.draft_resume}
                 </div>
 
-                {(() => {
-                  if (outputFormat === "LaTeX") {
-                    const docStart = result.draft_resume.indexOf("\\documentclass");
-                    const docEnd = result.draft_resume.indexOf("\\end{document}");
-                    
-                    if (docStart !== -1 && docEnd !== -1) {
-                      const latexEnd = docEnd + "\\end{document}".length;
-                      const latexCode = result.draft_resume.substring(docStart, latexEnd);
-                      const normalText = (result.draft_resume.substring(0, docStart) + result.draft_resume.substring(latexEnd)).trim();
-                      
-                      return (
-                        <>
-                          <div className="flex-1 bg-gray-900 border border-gray-700 rounded-lg p-4 overflow-y-auto font-mono text-xs text-blue-300 whitespace-pre-wrap">
-                            <div className="text-gray-500 mb-2 border-b border-gray-700 pb-2 font-sans font-bold">LaTeX Code Block</div>
-                            {latexCode}
-                          </div>
-                          {normalText && (
-                            <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 font-sans text-sm text-gray-300 whitespace-pre-wrap mt-4">
-                              <div className="text-gray-500 mb-2 border-b border-gray-700 pb-2 font-bold">Additional Agent Notes</div>
-                              {normalText}
-                            </div>
-                          )}
-                        </>
-                      );
-                    }
-                  }
-                  
-                  // Default Markdown or Unparsable LaTeX
-                  return (
-                    <div className="flex-1 bg-gray-900 border border-gray-700 rounded-lg p-4 overflow-y-auto font-mono text-sm text-gray-300 whitespace-pre-wrap">
-                      {result.draft_resume}
-                    </div>
-                  );
-                })()}
+                {result.agent_notes && (
+                  <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 font-sans text-sm text-gray-300 whitespace-pre-wrap mt-4">
+                    <div className="text-gray-500 mb-2 border-b border-gray-700 pb-2 font-bold">Additional Agent Notes</div>
+                    {result.agent_notes}
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -73,9 +73,17 @@ def main():
     console.print("[bold blue]Starting Anti-Hallucination Resume Pipeline...[/bold blue]")
     
     final_state = app.invoke(initial_state)
+    draft = final_state.get("draft_resume", "")
+    
+    import re
+    resume_match = re.search(r"<resume>(.*?)</resume>", draft, re.DOTALL)
+    if resume_match:
+        parsed_resume = resume_match.group(1).strip()
+    else:
+        parsed_resume = draft.strip()
     
     # Print ONLY the tailored resume to stdout
-    print(final_state.get("draft_resume", ""))
+    print(parsed_resume)
 
 if __name__ == "__main__":
     main()
